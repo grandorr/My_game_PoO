@@ -11,35 +11,36 @@ class Player
 	def show_state
 			print "#{@name} a #{@life_points} points de vie"
 	end
+# Affiche combien le nom et les pdv #
 
 	def gets_damage(attack_value)
 		@life_points -= attack_value
 		if @life_points <= 0 
 			@life_points = 0 
 			return " Le joueur #{self.name} a été tué !"
-
 		end
 	end
+# Méthode pour infliger des dommages et afficher si le joueur est mort 
 
 	def attacks(player_attacked)
 		puts "Le joueur #{@name} attaque le joueur #{player_attacked.name}"
 		attack_power = compute_damage
 		puts "Il lui inflige #{attack_power} points de dommages"
 		player_attacked.gets_damage(attack_power)
-
 	end
+# Méthode pour faire attaquer un joueur #
 
 
 	def compute_damage
     return rand(1..6)
   end
-
+# génere le montant d'une attaque 
 
 
 end
+# Fin de class Player #
 
-
-class HumanPlayer < Player 
+class HumanPlayer < Player    # La class HumanPlayer hérite des propriété de la class Player 
 	attr_accessor :weapon_level 
 
 	def initialize(name_to_save)
@@ -51,10 +52,12 @@ class HumanPlayer < Player
 	def show_state
 		puts "#{@name} a #{@life_points} points de vie et son arme est niveau #{@weapon_level}. " 
 	end
+# Affiche le nom, les pdv et le niveau de l'arme d'un HumanPlayer 
 
 	def compute_damage
     return rand(1..6) * @weapon_level
   end
+# Genere une attaque aléatoire en fonction de l'arme d'un HumanPlayer 
 
   def search_weapon
   	weapon_search = rand(1..6)
@@ -67,6 +70,8 @@ class HumanPlayer < Player
   		puts "Et non tu ne trouve pas mieux... "
   	end
   end
+# HumanPlayer cherche une arme entre 1 et 6, si l'arme est mieux que celle d'origine il la prend.
+# Sinon rien ne se passe.
 
   def search_health_pack
   	search_health = rand(1..6)
@@ -88,7 +93,8 @@ class HumanPlayer < Player
   		puts " Tu as maintenant #{@life_points} points de vie "
   	end
   end
+# HumanPlayer cherche de la vie, lance un dés et en fonction du résultat trouve ou non de la vie...
 end
-
+# Fin de la class HumanPlayer. 
 
 

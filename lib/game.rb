@@ -6,13 +6,11 @@ class Game
 		@enemies = [player_1 = Player.new("Zombie1"),player_2 = Player.new("Zombie2"),
 		player_3 = Player.new("Zombie3"),player_4 = Player.new("Zombie4")]
 		@players_left = 10
-		@enemies_in_sight = []
 	end
 
   def new_players
   	if @enemies.length != @players_left
   		dés = rand(1..6)
-  		dés_name = rand(5..999)
   		if dés == 1
   			puts "Pas de nouveau monstre "
   		elsif dés > 1 && dés < 5
@@ -30,7 +28,8 @@ class Game
    		end
    	end
    end
-
+# la méthode new_players permet d'ajouter un nouveau monstre au combat en fonction d'un jet de dès
+# jusqu'a un total de 10 monstre en tout ( en comptant les 4 monstre du départ )
 
 	def kill_player(enemies_to_kill)
 		@enemies.each do |enemie|
@@ -41,7 +40,7 @@ class Game
 			end
 		end
 	end
-
+# La méthode kill_player permet de supprimer un monstre du tableau si ses points de vie == 0 
 
 	def is_still_ongoing?
 		if @human_player.life_points > 0 && @enemies.length > 0 
@@ -50,11 +49,13 @@ class Game
 			return true 
 		end
 	end
+# Return true quand le combat dois se terminer. 
 
 	def show_players
 		puts @human_player.show_state
 		puts "Il reste #{@enemies.length} ennemies !"
 	end
+# Affiche l'état de l'utilisateur & le nombre d'ennemies restant.
 
 	def menu
 		puts "Quelle action veux-tu effectuer?"
@@ -69,6 +70,7 @@ class Game
 		end
 		puts " ATTENTION : Si tu rentre autre chose que ce qui est proposé, tu passe ton tour !!!"
 	end
+# Menu visuel #
 
 	def menu_choice(result_choice)
 		if result_choice == "a"
@@ -151,12 +153,16 @@ class Game
 			gets.chomp
 		end
 	end
-  
+ # Permet de réagir au choix de l'utilisateur # 
+ # Désolé pour la longueur de cette méthode mais c'est le seul moyen que j'ai trouvé 
+ # pour avoir un menu cohérent . 
+
   def enemies_attack
   	@enemies.each do |enemie|
   		enemie.attacks(@human_player)
   	end
   end
+ # Permet au monstre d'attaquer l'utilisateur ! 
 
   def end 
   	if @human_player.life_points == 0
@@ -167,8 +173,11 @@ class Game
 		puts " ___________________________________"
 		end
 	end
+# Affiche le résultat final, gagné/perdu ... 
 end
 
+
+# Fin de la class Game #
 
 
 
